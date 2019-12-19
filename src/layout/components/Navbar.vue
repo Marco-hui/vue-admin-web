@@ -11,19 +11,18 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
+          <el-dropdown-item icon="el-icon-user-solid" disabled>{{ name }}</el-dropdown-item>
           <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
+            <el-dropdown-item divided><svg-icon icon-class="home" class-name="svg-icon" />Home</el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/Marco-hui/vue-admin-web">
-            <el-dropdown-item>Github</el-dropdown-item>
+            <el-dropdown-item><svg-icon icon-class="github" class-name="svg-icon" />Github</el-dropdown-item>
           </a>
-          <a target="_blank" href="https://marco-hui.github.io/vue-admin-web">
-            <el-dropdown-item>Site</el-dropdown-item>
-          </a>
+          <!-- <a target="_blank" href="https://Marco-hui.gitee.io/vue-admin-web">
+            <el-dropdown-item><svg-icon icon-class="gitee" class-name="svg-icon"/>Gitee Site</el-dropdown-item>
+          </a> -->
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">Log Out</span>
+            <span style="display:block;" @click="logout"><svg-icon icon-class="exit" class-name="svg-icon" />Log Out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -44,7 +43,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'name'
     ])
   },
   methods: {
@@ -60,6 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.svg-icon{margin-right: 8px;}
 .navbar {
   height: 50px;
   overflow: hidden;

@@ -59,7 +59,17 @@ div:focus {
   }
 }
 
+.fl {float: left;}
+.fr {float: right;}
+
 // main-container global css
 .app-container {
   padding: 20px;
+}
+
+.ellipsis{ 
+  overflow: hidden;
+  text-overflow:ellipsis;//文本溢出显示省略号
+  white-space:nowrap;//文本不会换行（单行文本溢出）
+  display: block;
 }

@@ -4,8 +4,6 @@
 
 [线上地址](http://marco-hui.github.io/vue-admin-web)
 
-[国内访问](https://marco-hui.gitee.io/vue-admin-web)
-
 目前版本为 `v4.0+` 基于 `@vue/cli` 进行构建。
 
 ## Build Setup
