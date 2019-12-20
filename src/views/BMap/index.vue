@@ -33,6 +33,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import loadBMap from '@/utils/loadBMap.js'
 export default {
   data() {
@@ -49,7 +50,7 @@ export default {
     }
   },
   async mounted() {
-    await loadBMap('您的密钥') // 加载引入BMap
+    await loadBMap('oW2UEhdth2tRbEE4FUpF9E5YVDCIPYih') // 加载引入BMap
     this.initMap()
   },
   methods: {
