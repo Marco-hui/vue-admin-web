@@ -1,13 +1,11 @@
 export default function loadBMap(ak) {
   return new Promise(function(resolve, reject) {
-    if (typeof BMap !== 'undefined') {
-      var BMap = window.BMap
-      resolve(BMap)
+    if (typeof window.BMap !== 'undefined') {
+      resolve(window.BMap)
       return true
     }
     window.onBMapCallback = function() {
-      var BMap = window.BMap
-      resolve(BMap)
+      resolve(window.BMap)
     }
     const script = document.createElement('script')
     script.type = 'text/javascript'

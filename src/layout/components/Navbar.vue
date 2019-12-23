@@ -25,6 +25,9 @@
           <!-- <a target="_blank" href="https://Marco-hui.gitee.io/vue-admin-web">
             <el-dropdown-item><svg-icon icon-class="gitee" class-name="svg-icon"/>Gitee Site</el-dropdown-item>
           </a> -->
+          <a target="_blank" href="https://Marco-hui.github.io">
+            <el-dropdown-item><svg-icon icon-class="blog" class-name="svg-icon"/>Blog</el-dropdown-item>
+          </a>
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout"><svg-icon icon-class="exit" class-name="svg-icon" />Log Out</span>
           </el-dropdown-item>
