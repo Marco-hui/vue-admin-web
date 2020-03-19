@@ -1,75 +1,102 @@
 <template>
   <div class="home-container">
-    <div class="clearfix"><i class="el-icon-s-fold fr" @click="openDrawer" /></div>
+    <div class="drawerIcon clearfix"><i class="el-icon-s-fold fr" @click="openDrawer" /></div>
     <div class="section">
-      <el-card class="box-card" style="margin-bottom: 20px;">
-        <div slot="header" class="clearfix">
-          <span>Cards</span>
-          <el-button style="float: right; padding: 3px 0" type="text">View all cards</el-button>
-        </div>
-        <el-row :gutter="50" class="section-content">
-          <el-col :span="8">
-            <div class="content-card" />
-          </el-col>
-          <el-col :span="8">
-            <div class="content-card" />
-          </el-col>
-          <el-col :span="8">
-            <div class="content-card last">
-              <i class="el-icon-circle-plus-outline" />
-              <span>Add New Card</span>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
-
-      <el-row :gutter="50" class="section-content">
+      <div class="section-header clearfix">
+        <div class="title fl">Cards</div>
+        <div class="option fr">View all cards</div>
+      </div>
+      <el-row :gutter="20" class="section-content mgb50">
         <el-col :span="8">
-          <el-card class="box-card" shadow="never">
-            <div slot="header" class="clearfix">
-              <span>Main Services</span>
-              <el-button style="float: right; padding: 3px 0" type="text">view all</el-button>
-            </div>
-            <el-card v-for="o in 6" :key="o" shadow="always" class="fl content2-card">
-              <span>ABC</span>
+          <div class="content-card c1">
+            <div class="top">Available balance</div>
+            <div class="amount">$ {{ AmountFormat(2200, 2, ',') }}</div>
+            <div class="cardnumber">{{ CardNumberFormat('6217003130008765288') }}</div>
+            <div class="label">Monzo</div>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="content-card c2">
+            <div class="top">Available balance</div>
+            <div class="amount">$ {{ AmountFormat(1300.89, 2, ',') }}</div>
+            <div class="cardnumber">{{ CardNumberFormat('6217003130008765267') }}</div>
+            <div class="label">Monzo</div>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="content-card last">
+            <i class="el-icon-circle-plus-outline" />
+            <span>Add New Card</span>
+          </div>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="60">
+        <el-col :span="8">
+          <div class="section-header clearfix">
+            <div class="title fl">Main Services</div>
+            <div class="option fr">View all</div>
+          </div>
+          <div class="section-content s2">
+            <el-card v-for="item in services" :key="item.name" shadow="always" class="fl content2-card">
+              <i :class="item.icon" />
+              <span>{{ item.name }}</span>
             </el-card>
-          </el-card>
+          </div>
         </el-col>
         <el-col :span="16">
-          <el-card class="box-card" shadow="never">
-            <div slot="header" class="clearfix">
-              <span>Current</span>
-              <el-button style="float: right; padding: 3px 0" type="text">view all</el-button>
+          <div class="right-section-top">
+            <div class="section-header clearfix">
+              <div class="title fl">Current</div>
+              <div class="option fr">View all</div>
             </div>
-            <div v-for="o in 3" :key="o" class="text item">
-              <el-row :gutter="20">
+            <div class="section-content">
+              <el-row v-for="o in 3" :key="o" :gutter="20" class="current">
                 <el-col :span="6">12345678910</el-col>
-                <el-col :span="12" style="text-align:center;">---------------------------</el-col>
-                <el-col :span="6">$2000.00</el-col>
+                <el-col :span="12" class="b_line">&nbsp;</el-col>
+                <el-col :span="6" class="amount">$ {{ AmountFormat(2222.77, 2, ',') }}</el-col>
               </el-row>
             </div>
-          </el-card>
-          <el-card class="box-card" shadow="never">
-            <div slot="header" class="clearfix">
-              <span>Savings</span>
-              <el-button style="float: right; padding: 3px 0" type="text">view all</el-button>
+          </div>
+          <div class="right-section-bottom">
+            <div class="section-header clearfix">
+              <div class="title fl">Savings</div>
+              <div class="option fr">View all</div>
             </div>
-            <div id="echart-line" />
-          </el-card>
+            <div class="section-content clearfix">
+              <div id="echart-line" class="fl" />
+              <div class="fr echart-data">
+                <el-row>
+                  <el-col :span="12" class="label">Total</el-col>
+                  <el-col :span="12" class="amount">$ {{ AmountFormat(2222.77, 2, ',') }}</el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12" class="label">This week</el-col>
+                  <el-col :span="12" class="amount">$ {{ AmountFormat(6222.77, 2, ',') }}</el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12" class="label">This month</el-col>
+                  <el-col :span="12" class="amount">$ {{ AmountFormat(12222.77, 2, ',') }}</el-col>
+                </el-row>
+              </div>
+            </div>
+          </div>
         </el-col>
       </el-row>
     </div>
     <el-drawer
       :visible.sync="drawerShow"
+      :with-header="false"
+      :show-close="false"
       direction="rtl"
       size="25%"
     >
       <div class="content">
-        <div class="header clearfix">
-          <el-badge is-dot class="fl">
+        <div class="header">
+          <el-badge is-dot class="badge">
             <i class="el-icon-bell" />
           </el-badge>
-          <div class="fr">
+          <div class="avatar">
             <span class="name">{{ name }}</span>
             <el-avatar :src="avatar+'?imageView2/1/w/80/h/80'" />
           </div>
@@ -86,41 +113,41 @@
           <div class="item">
             <el-row :gutter="20">
               <el-col :span="6">
-                <i class="el-icon-star-on" />
+                <i class="el-icon-basketball" />
               </el-col>
               <el-col :span="12">
                 <span>Dribble Plan</span>
               </el-col>
               <el-col :span="6">
-                <span>-$100</span>
+                <span class="amount">-$100</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
               <el-col :span="6">
-                <i class="el-icon-star-on" />
+                <i class="el-icon-potato-strips" />
               </el-col>
               <el-col :span="12">
                 <span>Dribble Plan</span>
               </el-col>
               <el-col :span="6">
-                <span>-$100</span>
+                <span class="amount">+$110</span>
               </el-col>
             </el-row>
             <el-row :gutter="20">
               <el-col :span="6">
-                <i class="el-icon-star-on" />
+                <i class="el-icon-grape" />
               </el-col>
               <el-col :span="12">
                 <span>Dribble Plan</span>
               </el-col>
               <el-col :span="6">
-                <span>-$100</span>
+                <span class="amount">-$120</span>
               </el-col>
             </el-row>
           </div>
         </div>
         <div class="button">
-          <el-button type="danger" round>Transfer Money ——></el-button>
+          <el-button type="danger" round>Transfer Money —></el-button>
         </div>
         <el-button class="button-folder fr" type="primary" icon="el-icon-folder" circle />
       </div>
@@ -130,36 +157,50 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { amountFormat, cardNumberFormat } from '@/utils'
 import echarts from 'echarts'
 
 export default {
   name: 'Home',
   data() {
     return {
-		  drawerShow: false,
-		  WeekTime: 0
+      drawerShow: false,
+      WeekTime: 0,
+      services: [
+        { icon: 'el-icon-sort', name: 'Transactions' },
+        { icon: 'el-icon-magic-stick', name: 'Utility' },
+        { icon: 'el-icon-wallet', name: 'Loans' },
+        { icon: 'el-icon-bank-card', name: 'Deposits' },
+        { icon: 'el-icon-time', name: 'Fast transfer' },
+        { icon: 'el-icon-connection', name: 'Exchangs' }
+      ]
     }
   },
   computed: {
     ...mapGetters([
-		  'name',
-		  'avatar'
+      'name',
+      'avatar'
     ])
   },
   mounted() {
-  	this.initEchartLine()
+    this.initEchartLine()
   },
   methods: {
+    AmountFormat(number, decimals, thousands_sep) {
+      return amountFormat(number, decimals, thousands_sep)
+    },
+    CardNumberFormat(cardNumber) {
+      return cardNumberFormat(cardNumber)
+    },
     openDrawer() {
-		  this.drawerShow = true
-		  this.$nextTick(() => {
+      this.drawerShow = true
+      this.$nextTick(() => {
         this.initEchartPie()
-		  })
+      })
     },
     initEchartPie() {
-		  var myChartPie = echarts.init(document.getElementById('echart-pie'))
-		  console.log(myChartPie)
-		  var option = {
+      var myChartPie = echarts.init(document.getElementById('echart-pie'))
+      var option = {
         title: {
           text: '$5,349',
           subtext: 'Balance',
@@ -176,40 +217,40 @@ export default {
           }
         },
         tooltip: {
-				  trigger: 'item',
-				  formatter: '{a} <br/>{b}: {c} ({d}%)'
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         series: [
-				  {
+          {
             name: '访问来源',
             type: 'pie',
             radius: ['50%', '70%'],
             avoidLabelOverlap: false,
             label: {
-						  show: false,
-						  position: 'center'
+              show: false,
+              position: 'center'
             },
             emphasis: {
-						  label: {
-                show: true,
+              label: {
+                show: false,
                 fontSize: '14',
                 fontWeight: 'bold'
-						  }
+              }
             },
             labelLine: {
-						  show: false
+              show: false
             },
             data: [
-						  { value: 335, name: '直接访问' },
-						  { value: 310, name: '邮件营销' },
-						  { value: 234, name: '联盟广告' },
-						  { value: 135, name: '视频广告' },
-						  { value: 1548, name: '搜索引擎' }
+              { value: 335, name: '直接访问' },
+              { value: 310, name: '邮件营销' },
+              { value: 234, name: '联盟广告' },
+              { value: 135, name: '视频广告' },
+              { value: 1548, name: '搜索引擎' }
             ]
-				  }
+          }
         ]
-		  }
-		  myChartPie.setOption(option)
+      }
+      myChartPie.setOption(option)
     },
     initEchartLine() {
       var myChartLine = echarts.init(document.getElementById('echart-line'))
@@ -219,7 +260,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['2019-01', '2019-02', '2019-03', '2019-04', '2019-05', '2019-06'],
+          data: ['$10', '$20', '$30', '$40', '$50'],
           axisLine: {
             lineStyle: {
               color: '#999'
@@ -228,7 +269,7 @@ export default {
         }],
         yAxis: [{
           type: 'value',
-          splitNumber: 4,
+          interval: 25,
           splitLine: {
             lineStyle: {
               type: 'dashed',
@@ -241,6 +282,9 @@ export default {
               color: '#333'
             }
           },
+          axisTick: {
+            show: false
+          },
           nameTextStyle: {
             color: '#999'
           },
@@ -251,7 +295,7 @@ export default {
         series: [{
           name: '课时',
           type: 'line',
-          data: [23, 60, 20, 36, 23, 85],
+          data: [23, 60, 36, 23, 85],
           lineStyle: {
             normal: {
               width: 8,
@@ -291,6 +335,7 @@ export default {
 	.tip{
 		.el-select{
 			width:115px;
+      .el-input__inner{border: 0 none;}
 		}
 	}
 </style>
@@ -298,47 +343,83 @@ export default {
 <style lang="scss" scoped>
 .home {
   &-container {
-		i.el-icon-s-fold{font-size:30px;cursor:pointer;}
-		margin: 10px 20px;
+		margin: 20px 60px;
+    .drawerIcon{
+      margin-bottom: 10px;
+      i.el-icon-s-fold{font-size:30px;cursor:pointer;}
+    }
 		.section{
+      .mgb50{margin-bottom: 50px;}
 			.section-header{
-				line-height: 40px;
+				line-height: 60px;
 				.title{font-size:16px;color:#000;font-weight:bold;}
-				.option{font-size:12px;color:#666;}
+				.option{font-size:12px;color:#A7A9B1;cursor:pointer;}
 			}
 			.section-content{
 				.content-card{
-					height:150px;background: #f60;border-radius:30px;
-					&.last{
-						background: #eee;text-align: center;line-height: 150px;
-						.el-icon-circle-plus-outline{font-size:20px;}
-					}
+					height:170px;background: #FF4D56;border-radius:20px;padding:25px;
+          .top{fontSize: 12px;color: #E22F39;margin-bottom: 10px;}
+          .amount{font-size: 18px;color: #fff;margin-bottom: 30px;}
+          .cardnumber{color: #E22F39;margin-bottom: 10px;}
+          .label{font-size: 18px;color: #fff;}
+          &.c2{
+            background: #0E809A;
+            .top, .cardnumber{color: #084A57;}
+          }
+          &.last{
+            background: #F8F8F8;text-align: center;display: flex;flex-direction: column;justify-content: center;cursor:pointer;
+            .el-icon-circle-plus-outline{font-size:45px;color: #D7D7D7;margin-bottom: 10px;}
+            span{color:#9799A2; font-size: 14px;}
+          }
 				}
 				.content2-card{
-					width:45%;height:115px;margin-bottom: 10px;text-align: center;line-height: 75px;
-					&:nth-child(2n){margin-left: 10px;}
+          width:47%;height:130px;margin-bottom: 10px;border-radius: 30px;
+					&:nth-child(2n){margin-left: 15px;}
+          /deep/ .el-card__body{
+            height: 100%;text-align: center;display: flex;flex-direction: column;justify-content: center;
+            i{font-size:30px;color:#FF4D56;margin-bottom: 20px;}
+            span{font-size:12px;color:#15243D;}
+          }
 				}
+        .current{
+          color: #BCBDC4;margin-bottom: 15px;
+          .b_line{border-bottom: 1px dashed #BCBDC4;}
+          .amount{text-align: right;color:#14233C;font-weight: bold;}
+        }
+        .echart-data{
+          width:220px;line-height: 40px;margin-top: 40px;
+          .label{color:#ABADB5;}
+          .amount{text-align: right;color:#14233C;font-weight: bold;}
+        }
 			}
-			#echart-line{width:100%;height:200px;}
+			#echart-line{
+        width:60%;height:300px;
+      }
 		}
 		.el-drawer{
-		  .content{
-				padding:20px;
+      .content{
+				padding:30px;background: #FcFcFc;
 				.header{
-				  i.el-icon-bell{font-size:30px;}
-				  .name{line-height: 40px;vertical-align: middle;}
-				  .el-avatar{vertical-align: middle;}
+          display:flex;justify-content:space-between;align-items: center;
+          i.el-icon-bell{font-size:25px;color:#999BA4;}
+          .name{line-height: 40px;vertical-align: middle;}
+          .el-avatar{vertical-align: middle;}
 				}
 				#echart-pie{margin:0 auto;}
 				.data-item{
 					.tip{
-						margin-bottom: 10px;
+						margin-bottom: 10px;color:#D7D8DB;
 						.el-input{width:50%;}
 					}
-					.item .el-row{margin-bottom: 15px;}
+					.item .el-row{
+            margin-bottom: 10px;
+            .el-col{line-height: 45px;}
+            i{display: block;width:45px;height:45px;text-align: center;line-height: 45px;background: #FFFFFF;border-radius:10px;font-size: 30px;color:#FF4D56;}
+            .amount{color:#FF4D56;}
+          }
 				}
 				.button .el-button{display: block; margin:20px auto;}
-		  }
+      }
 		}
   }
 }
