@@ -46,7 +46,8 @@ export default {
         }
       },
       map: '', // 地图实例
-      mk: '' // Marker实例
+      mk: '', // Marker实例
+      locationPoint: null
     }
   },
   async mounted() {
@@ -91,6 +92,10 @@ export default {
         that.getAddrByPoint(e.point)
       })
     },
+    // 获取两点间的距离
+    getDistancs(pointA, pointB) {
+      return this.map.getDistance(pointA, pointB).toFixed(2)
+    },
     // 浏览器定位函数
     geolocation() {
       var that = this
@@ -98,8 +103,10 @@ export default {
       geolocation.getCurrentPosition(function(res) {
         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
           that.getAddrByPoint(res.point)
+          that.locationPoint = res.point
         } else {
           alert('failed' + this.getStatus())
+          that.locationPoint = new BMap.Point(113.3324436, 23.1315381)
         }
       }, { enableHighAccuracy: true })
     },

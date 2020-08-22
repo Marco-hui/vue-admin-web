@@ -3,7 +3,7 @@
     <div class="drawerIcon clearfix"><i class="el-icon-s-fold fr" @click="openDrawer" /></div>
     <div class="section">
       <div class="section-header clearfix">
-        <div class="title fl">Cards</div>
+        <div class="title fl">Cards-change</div>
         <div class="option fr">View all cards</div>
       </div>
       <el-row :gutter="20" class="section-content mgb50">
@@ -183,6 +183,7 @@ export default {
     ])
   },
   mounted() {
+    console.log('remove test')
     this.initEchartLine()
   },
   methods: {
@@ -253,6 +254,7 @@ export default {
       myChartPie.setOption(option)
     },
     initEchartLine() {
+      console.log('start chart')
       var myChartLine = echarts.init(document.getElementById('echart-line'))
       var option = {
         tooltip: {
