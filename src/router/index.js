@@ -68,6 +68,19 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/line-chat',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'LineChart',
+        component: () => import('@/views/LineChart/index'),
+        meta: { title: 'LineChart', icon: 'line-chart' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
